@@ -23,7 +23,10 @@ contract BulkNFT is ERC721, Ownable {
     }
 
     function mint(address recipient, uint256 amount) public payable {
-        require(amount <= MAX_TOKENS, "Exceeds maximum token limit");
+        require(
+            _currentTokenId + amount <= MAX_TOKENS,
+            "Exceeds maximum token limit"
+        );
         require(msg.value >= MINT_PRICE, "Insufficient balance");
 
         for (uint256 i = 0; i < amount; i++) {
@@ -35,6 +38,12 @@ contract BulkNFT is ERC721, Ownable {
 
     function _baseURI() internal view override returns (string memory) {
         return _baseTokenURI;
+    }
+
+    function tokenURI(
+        uint256 tokenId
+    ) public view override returns (string memory) {
+        return string(abi.encodePacked(super.tokenURI(tokenId), ".json"));
     }
 
     function setBaseURI(string memory newBaseURI) public onlyOwner {

@@ -13,24 +13,31 @@ module.exports = {
   },
   defaultNetwork: "hardhat",
   networks: {
+    sepolia: {
+      url: "https://ethereum-sepolia.blockpi.network/v1/rpc/public",
+      accounts: [process.env.PRIVATE_KEY || ""],
+      chainId: 11155111,
+      gasPrice: 20000000000,
+    },
     polygonAmoy: {
       url: "https://rpc-amoy.polygon.technology",
       accounts: [process.env.PRIVATE_KEY || ""],
     },
   },
   etherscan: {
-    apiKey: {
-      polygonAmoy: process.env.POLYGONSCAN_API_KEY || "",
-    },
-    customChains: [
-      {
-        network: "polygonAmoy",
-        chainId: 80002,
-        urls: {
-          apiURL: "https://api-amoy.polygonscan.com/api",
-          browserURL: "https://amoy.polygonscan.com",
-        },
-      },
-    ],
+    apiKey: process.env.ETHERSCAN_API_KEY || "",
+    // apiKey: {
+    //   polygonAmoy: process.env.POLYGONSCAN_API_KEY || "",
+    // },
+    // customChains: [
+    //   {
+    //     network: "polygonAmoy",
+    //     chainId: 80002,
+    //     urls: {
+    //       apiURL: "https://api-amoy.polygonscan.com/api",
+    //       browserURL: "https://amoy.polygonscan.com",
+    //     },
+    //   },
+    // ],
   },
 };
